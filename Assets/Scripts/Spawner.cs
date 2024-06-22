@@ -1,39 +1,39 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateCube : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
+    [SerializeField] private int _startScaleMultiplier = 2;
     [SerializeField] private float _rayLength = 100f;
-    [SerializeField] private float _explosionRadius = 10f;
-    [SerializeField] private float _explosionForce = 10f;
     [SerializeField] private int _minCountCube = 2;
     [SerializeField] private int _maxCountCube = 6;
 
-    [SerializeField] private Vector3 offset = new Vector3(0f, 0f, 0.1f);
-    [SerializeField] private GameObject _prefabCube;
+    [SerializeField] private Vector3 _offset = new Vector3(0f, 0f, 0.1f);
+    [SerializeField] private Rigidbody _prefabCube;
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private LayerMask _hitLayer;
 
+    private List<Rigidbody> _newCubes = new List<Rigidbody>();
     private int _minRangeRandomChance = 0;
     private int _maxRangeRandomChance = 11;
     private int _divisionChance = 10;
+    private Exploader _exploader;
 
-    void Start()
+    private void Start()
     {
-        GameObject startCube = Instantiate(_prefabCube, new Vector3(1f, 1f, 0f), Quaternion.identity);
-        startCube.transform.localScale = new Vector3(2, 2, 2);
+        Rigidbody startCube = Instantiate(_prefabCube, new Vector3(1f, 1f, 0f), Quaternion.identity);
+        startCube.transform.localScale = Vector3.one * _startScaleMultiplier;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SendRay();
+            HandleMouseRaycast();
         }
     }
 
-    private void SendRay()
+    private void HandleMouseRaycast()
     {
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
@@ -58,40 +58,24 @@ public class CreateCube : MonoBehaviour
         {
             _divisionChance /= numberDivided;
             CreateNewCube(originalPosition, newScale);
-            ExplosionCube(originalPosition);
+            _exploader?.ExplosionCube(originalPosition, originalScale, _newCubes);
+            _newCubes.Clear();
         }
     }
-
     private void CreateNewCube(Vector3 position, Vector3 scale)
     {
-        GameObject newCube;
+        Rigidbody newCube;
         int numberOfCubes = Random.Range(_minCountCube, _maxCountCube);
 
         for (int i = 0; i < numberOfCubes; i++)
         {
             Color randomColor = new Color(Random.value, Random.value, Random.value);
 
-            newCube = Instantiate(_prefabCube, position + offset * i, Quaternion.identity);
+            newCube = Instantiate(_prefabCube, position + _offset * i, Quaternion.identity);
             newCube.transform.localScale = scale;
             newCube.GetComponent<Renderer>().material.color = randomColor;
-        }
-    }
 
-    private void ExplosionCube(Vector3 position)
-    {
-        position.y = 0;
-        Rigidbody rigidbody;
-
-        Collider[] colliders = Physics.OverlapSphere(position, _explosionRadius);
-
-        foreach (Collider nearbyObject in colliders)
-        {
-            rigidbody = nearbyObject.GetComponent<Rigidbody>();
-
-            if (rigidbody != null)
-            {
-                rigidbody.AddExplosionForce(_explosionForce, position, _explosionRadius);
-            }
+            _newCubes.Add(newCube);
         }
     }
 }

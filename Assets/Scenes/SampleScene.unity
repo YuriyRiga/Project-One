@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 788248947}
   - component: {fileID: 788248946}
   - component: {fileID: 788248945}
+  - component: {fileID: 788248950}
   - component: {fileID: 788248949}
   m_Layer: 0
   m_Name: Plane
@@ -438,16 +439,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 788248944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da877644cf372f94daaaf79026aa42bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c38a16ca8c55c64986334a8413be879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rayLength: 100
   _explosionRadius: 10
-  _explosionForce: 500
+  _explosionForce: 10
+--- !u!114 &788248950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788248944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd5164b5e691f24889c61efccae8424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startScaleMultiplier: 2
+  _rayLength: 100
   _minCountCube: 2
   _maxCountCube: 6
-  offset: {x: 0, y: 0, z: 0.1}
-  _prefabCube: {fileID: 8372047918710104273, guid: c067eaf64c6dc46489862865ae177739, type: 3}
+  _offset: {x: 0, y: 0, z: 0.1}
+  _prefabCube: {fileID: -2289362867986165257, guid: c067eaf64c6dc46489862865ae177739, type: 3}
   _mainCamera: {fileID: 963194227}
   _hitLayer:
     serializedVersion: 2
