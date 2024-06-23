@@ -13,7 +13,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private LayerMask _hitLayer;
 
-    private List<Rigidbody> _newCubes = new List<Rigidbody>();
     private int _minRangeRandomChance = 0;
     private int _maxRangeRandomChance = 11;
     private int _divisionChance = 10;
@@ -57,13 +56,14 @@ public class Spawner : MonoBehaviour
         if (Random.Range(_minRangeRandomChance, _maxRangeRandomChance) <= _divisionChance)
         {
             _divisionChance /= numberDivided;
-            CreateNewCube(originalPosition, newScale);
-            _exploader?.ExplosionCube(originalPosition, originalScale, _newCubes);
-            _newCubes.Clear();
+            List<Rigidbody> newCubes = CreateNewCubes(originalPosition, newScale);
+            _exploader?.ApplyExplosionToCubes(originalPosition, originalScale, newCubes);
+            newCubes.Clear();
         }
     }
-    private void CreateNewCube(Vector3 position, Vector3 scale)
+    private List<Rigidbody> CreateNewCubes(Vector3 position, Vector3 scale)
     {
+        List<Rigidbody> newCubes = new List<Rigidbody>();
         Rigidbody newCube;
         int numberOfCubes = Random.Range(_minCountCube, _maxCountCube);
 
@@ -75,7 +75,9 @@ public class Spawner : MonoBehaviour
             newCube.transform.localScale = scale;
             newCube.GetComponent<Renderer>().material.color = randomColor;
 
-            _newCubes.Add(newCube);
+            newCubes.Add(newCube);
         }
+
+        return newCubes;
     }
 }
