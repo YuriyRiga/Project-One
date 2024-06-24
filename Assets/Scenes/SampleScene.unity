@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _explosionRadius: 10
-  _explosionForce: 10
+  _explosionForce: 1000
 --- !u!114 &788248950
 MonoBehaviour:
   m_ObjectHideFlags: 0
