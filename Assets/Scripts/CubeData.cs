@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeData : MonoBehaviour
+public class CubeData
 {
-    // Start is called before the first frame update
-    void Start()
+    public CubeData(Rigidbody rigidbody, CubeDivisionChance divisionChance)
     {
-        
+        CubeRigidbody = rigidbody;
+        DivisionChance = divisionChance;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Rigidbody CubeRigidbody { get; private set; }
+    public CubeDivisionChance DivisionChance { get; private set; }
 }

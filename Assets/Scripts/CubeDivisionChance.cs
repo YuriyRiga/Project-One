@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class CubeDivisionChance : MonoBehaviour
 {
-    [SerializeField] private float _divisionChance = 10f;
+    [SerializeField] private int _divisionChance = 10;
 
-    public float DivisionChance
+    public int DivisionChance
     {
         get { return _divisionChance; }
-        set { _divisionChance = value; }
+        private set { _divisionChance = value; }
+    }
+
+    public void SetDivisionChance(int divisionChance)
+    {
+        _divisionChance = divisionChance;
     }
 }

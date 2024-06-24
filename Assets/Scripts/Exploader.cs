@@ -5,12 +5,12 @@ public class Exploader : MonoBehaviour
 {
     [SerializeField] private float _explosionForce = 10f;
 
-    public void ApplyExplosionToCubes(List<Rigidbody> cubes)
+    public void ApplyExplosionToCubes(List<CubeData> cubes)
     {
-        foreach (Rigidbody cubeRigidbody in cubes)
+        foreach (CubeData cubeData in cubes)
         {
             Vector3 randomDirection = Random.insideUnitSphere.normalized;
-            cubeRigidbody.AddForce(randomDirection * _explosionForce, ForceMode.Impulse);
+            cubeData.CubeRigidbody.AddForce(randomDirection * _explosionForce, ForceMode.Impulse);
         }
     }
 }

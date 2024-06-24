@@ -442,8 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c38a16ca8c55c64986334a8413be879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionRadius: 10
-  _explosionForce: 1000
+  _explosionForce: 10
 --- !u!114 &788248950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,6 +465,7 @@ MonoBehaviour:
   _hitLayer:
     serializedVersion: 2
     m_Bits: 8
+  _exploader: {fileID: 788248949}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
