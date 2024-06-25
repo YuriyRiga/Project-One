@@ -60,6 +60,10 @@ public class Spawner : MonoBehaviour
             newCubes = CreateNewCubes(originalPosition, newScale, parentsDivisionChance);
             _exploader?.ApplyExplosionToCubes(newCubes);
         }
+        else
+        {
+            _exploader?.ApplyExplosionParentsCube(originalPosition, originalScale);
+        }
     }
 
     private List<CubeData> CreateNewCubes(Vector3 position, Vector3 scale, CubeDivisionChance divisionChance)
