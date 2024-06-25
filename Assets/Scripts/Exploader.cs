@@ -29,7 +29,13 @@ public class Exploader : MonoBehaviour
 
             if (rigidbody != null)
             {
-                rigidbody.AddExplosionForce(_explosionForce * _damageMultiplierForParents / scale.y, position, _explosionRadius / scale.y);
+                float distance = Vector3.Distance(position, nearbyObject.transform.position);
+
+                float normalizedDistance = Mathf.Clamp01(1 - (distance / _explosionRadius));
+
+                float explosionForce = _explosionForce * _damageMultiplierForParents / scale.y * normalizedDistance;
+
+                rigidbody.AddExplosionForce(explosionForce, position, _explosionRadius / scale.y);
             }
         }
     }
